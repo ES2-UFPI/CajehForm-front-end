@@ -42,13 +42,13 @@ class PasswordHide extends React.Component {
         <Button transparent
                             onPress={this.changePwdType}
 >
-          <Icon active style={{color:'rgb(0,255,255)',right:15}} 
+          <Icon active style={{color:this.props.colored,right:15}} 
               name={icEye}
           />
           </Button>
-            <Input placeholder='Password' style={{color:'rgba(255,255,255,1)',right:25}}
+            <Input placeholder={this.props.place} style={{color:'rgba(255,255,255,1)',right:25}}
                       keyboardAppearance="dark"
-             placeholderTextColor="rgba(160,160,160,1)"
+             placeholderTextColor={this.props.colored}
              secureTextEntry={isPassword}
                     label={label} 
              />

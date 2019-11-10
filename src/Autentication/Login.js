@@ -5,20 +5,20 @@ import {
   Header,
   Title,
   Content,
-  Button as NewButton,
+  Button,
   Left,
   Right,
   Body,
   Icon,
   Fab,
-  Text as NewText,
+  Text,
   Item,
-  Input
+  Input,
 } from "native-base";
-import { Text, View, TouchableOpacity,FlatList } from "react-native";
-import Modal from "react-native-modal";
-import Publish from "../Components/Lookers/Publish.js";
 import CajehButton from "../Components/Lookers/CajehButton.js";
+import Modal from "react-native-modal";
+import { View, TouchableOpacity,FlatList } from "react-native";
+import Publish from "../Components/Lookers/Publish.js";
 import PasswordHide from "./PasswordHide.js";
 import { material } from "react-native-typography";
 import Axios from 'axios'
@@ -107,6 +107,68 @@ export default class Lobby extends Component {
           </Body>
         </Header>
         <Content style={{top:60, paddingTop:30}}>
+        <Modal
+            isVisible={this.state.isModalVisible}
+            style={{ margin: 0 }}
+            useNativeDriver={true}
+            hideModalContentWhileAnimating = {true}
+            animationIn= 'fadeInUp'
+            animationOut= 'fadeOutDown'
+          >
+              <View style={{ bottom: 10, backgroundColor:'rgba(200,200,200,1)'}}>
+              <View style={{padding:50, paddingTop:20, paddingBottom:20}}>
+          <Item >
+            <Icon active name='person' style={{color:'rgb(0,0,0)'}}/>
+            <Input placeholder='Nick/User'
+                      keyboardAppearance="dark"
+             placeholderTextColor="rgba(0,0,0,1)"/>
+          </Item>
+        </View>
+        <View style={{padding:50, paddingTop:20, paddingBottom:20, paddingRight:35}}>
+        <PasswordHide colored='rgba(0,0,0,1)' place='Password'/>
+        </View>
+        <View style={{padding:50, paddingTop:20, paddingBottom:20, paddingRight:35}}>
+        <PasswordHide colored='rgba(0,0,0,1)' place='ConfirmPassword'/>
+        </View>
+        <View style={{padding:50, paddingTop:20, paddingBottom:20}}>
+          <Item >
+            <Icon active name='mail' style={{color:'rgb(0,0,0)'}}/>
+            <Input placeholder='E-mail'
+                      keyboardAppearance="dark"
+             placeholderTextColor="rgba(0,0,0,1)"/>
+          </Item>
+        </View>
+        <View style={{padding:50, paddingTop:20, paddingBottom:20}}>
+          <Item >
+            <Icon active name='phone-portrait' style={{color:'rgb(0,0,0)'}}/>
+            <Input placeholder='PhoneNumber'
+                      keyboardAppearance="dark"
+             placeholderTextColor="rgba(0,0,0,1)"/>
+          </Item>
+        </View>
+                </View>
+                <Button
+                  style={{
+                    backgroundColor: "rgba(0,0,0, 0.5)",
+                    height: 50,
+                    borderBottomWidth: 3,
+                    borderBottomColor: "rgba(255,255,255,0.6)"
+                  }}
+                  onPress={this.hideModal}
+                >
+                  <Icon
+                    name="close-circle"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                  <Text style={{ color: "white", fontWeight: "700" }}>
+                    Close
+                  </Text>
+                  <Icon
+                    name="close-circle"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                </Button>
+          </Modal>
         <View style={{paddingLeft:50,paddingRight:50,}}>
           <Item >
             <Icon active name='person' style={{color:'rgb(0,255,255)'}}/>
@@ -116,8 +178,15 @@ export default class Lobby extends Component {
           </Item>
         </View>
         <View style={{padding:20}}>
-         <PasswordHide/>
+         <PasswordHide colored='rgba(0,255,255,1)' place='Password'/>
         </View>
+        <Button bordered full light style={{backgroundColor:'rgba(0,180,200,0.5)'}}>
+            <Text >Login</Text>
+          </Button>
+          <Button bordered full light style={{backgroundColor:'rgba(0,180,200,0.5)', top: 20}}
+          onPress={this.showModal} >
+            <Text>Cadaster</Text>
+          </Button>
         </Content>
       </Container>
     );
