@@ -1,6 +1,7 @@
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import LobbyScreen from './src/SubscriberGear/LobbyScreen.js';
+import MyPerfil from './src/SubscriberGear/MyPerfil.js';
 import MyPublish from './src/CollaboratorGear/MyPublish.js';
 import MyMaterial from './src/CollaboratorGear/MyMaterial.js';
 import DoPublish from './src/CollaboratorGear/DoPublish.js';
@@ -63,6 +64,12 @@ const AppNavigator = createStackNavigator({
   },
   MySaves: {
     screen: MySaves,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  MyPerfil: {
+    screen: MyPerfil,
     navigationOptions: () => ({
       header: null,
     }),

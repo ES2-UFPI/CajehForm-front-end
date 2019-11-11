@@ -13,7 +13,9 @@ class PasswordHide extends React.Component {
 
         this.state = {
             icEye: 'eye-off',
-            isPassword: true
+            isPassword: true,
+            textPassword:'',
+
         }
     }
 
@@ -27,8 +29,8 @@ class PasswordHide extends React.Component {
         // set new state value
         this.setState({
             icEye: isPassword ? "eye" : "eye-off",
-            isPassword: !isPassword,
-        });
+            isPassword: !isPassword
+                });
 
     };
 
@@ -51,6 +53,8 @@ class PasswordHide extends React.Component {
              placeholderTextColor={this.props.colored}
              secureTextEntry={isPassword}
                     label={label} 
+                    onChangeText={(textPassword) => this.setState({textPassword}, this.props.doingPassword(this.props.stateChange,textPassword))}
+                    value={this.state.textPassword}
              />
           </Item>
           </View>

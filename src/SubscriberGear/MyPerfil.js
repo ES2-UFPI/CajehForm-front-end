@@ -26,7 +26,6 @@ export default class Lobby extends Component {
     super(props);
     this.state = {
     isModalVisible: false,
-    isModalVisible2: false,
     publications: []
     }
   }
@@ -35,14 +34,8 @@ export default class Lobby extends Component {
   showModal = () => {
     this.setState({ isModalVisible: true });
   };
-  showModal2 = () => {
-    this.setState({ isModalVisible2: true });
-  };
   hideModal = () => {
     this.setState({ isModalVisible: false });
-  };
-  hideModal2 = () => {
-    this.setState({ isModalVisible2: false });
   };
   _renderItem = ({ item }) => (
     <Publish  
@@ -123,9 +116,9 @@ export default class Lobby extends Component {
           <Right>
             <NewButton
               style={{ backgroundColor: "rgba(0,0,0, 0)", height: 60 }}
-              onPress={this.showModal2}
+              onPress={() => this.props.navigation.navigate("MySaves")}
             >
-              <Icon name="outlet" style={{ color: "rgba(255,255,255,1)" }} />
+              <Icon name="bookmark" style={{ color: "rgba(255,255,255,1)" }} />
             </NewButton>
           </Right>
         </Header>
@@ -196,59 +189,6 @@ export default class Lobby extends Component {
                     borderBottomColor: "rgba(255,255,255,0.6)"
                   }}
                   onPress={this.hideModal}
-                >
-                  <Icon
-                    name="close-circle-outline"
-                    style={{ color: "rgba(255,255,255,1)"}}
-                  />
-                  <NewText style={{ color: "white", fontWeight: "700" }}>
-                    Close
-                  </NewText>
-                  <Icon
-                    name="close-circle-outline"
-                    style={{ color: "rgba(255,255,255,1)"}}
-                  />
-                </NewButton>
-              </View>
-          </Modal>
-          <Modal
-            isVisible={this.state.isModalVisible2}
-            style={{ margin: 0 }}
-            useNativeDriver={true}
-            animationOutTiming = {200}
-            hideModalContentWhileAnimating = {true}
-            animationIn= 'fadeInUp'
-            animationOut= 'fadeOutDown'
-          >
-            <View style={{ flex: 1, flexDirection: "column" }}>
-              <TouchableOpacity style={{ flex: 1 }} onPress={this.hideModal2}>
-                <View />
-              </TouchableOpacity>
-              <View style={{ bottom: 10 }}>
-                  
-                  <CajehButton
-                    icon="bookmark"
-                    name="Saves"
-                    redirect={this.props.navigation.navigate}
-                    screen="MySaves"
-                    hide={this.hideModal2}
-                  />
-                  <CajehButton
-                    icon="person"
-                    name="Perfil"
-                    redirect={this.props.navigation.navigate}
-                    screen="MyPerfil"
-                    hide={this.hideModal2}
-                  />
-                </View>
-                <NewButton
-                  style={{
-                    backgroundColor: "rgba(0,0,0,0.9)",
-                    height: 50,
-                    borderBottomWidth: 3,
-                    borderBottomColor: "rgba(255,255,255,0.6)"
-                  }}
-                  onPress={this.hideModal2}
                 >
                   <Icon
                     name="close-circle-outline"
