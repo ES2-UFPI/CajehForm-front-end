@@ -63,7 +63,7 @@ export default class Lobby extends Component {
                   })
                 }
               >
-                M
+                S
               </Text>
               <Text
                 style={
@@ -74,10 +74,10 @@ export default class Lobby extends Component {
                   })
                 }
               >
-                aterial
+                aves
               </Text>
             </Title>
-            <Subtitle>edit</Subtitle>
+            <Subtitle>view</Subtitle>
           </Body>
           <Right>
             <NewButton
@@ -148,7 +148,7 @@ export default class Lobby extends Component {
                 </View>
                 <NewButton
                   style={{
-                    backgroundColor: "rgba(0,0,0,0.9)",
+                    backgroundColor: "rgba(0,0,0, 0.5)",
                     height: 50,
                     borderBottomWidth: 3,
                     borderBottomColor: "rgba(255,255,255,0.6)"
@@ -156,14 +156,14 @@ export default class Lobby extends Component {
                   onPress={this.hideModal}
                 >
                   <Icon
-                    name="close-circle-outline"
+                    name="close-circle"
                     style={{ color: "rgba(255,255,255,1)"}}
                   />
                   <NewText style={{ color: "white", fontWeight: "700" }}>
                     Close
                   </NewText>
                   <Icon
-                    name="close-circle-outline"
+                    name="close-circle"
                     style={{ color: "rgba(255,255,255,1)"}}
                   />
                 </NewButton>
