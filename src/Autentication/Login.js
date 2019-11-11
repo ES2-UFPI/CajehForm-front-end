@@ -244,16 +244,7 @@ export default class Lobby extends Component {
             full
             light
             style={{ backgroundColor: "rgba(0,180,200,0.5)", top: 20 }}
-            onPress={this.showModal}
-          >
-            <Text>Sign Up</Text>
-          </Button>
-          <Button
-            bordered
-            full
-            light
-            style={{ backgroundColor: "rgba(0,180,200,0.5)", top: 20 }}
-            onPress={this.props.navigation.navigate('Lobby')}
+            onPress={() => this.props.navigation.navigate('Lobby')}
           >
             <Text>Lobby</Text>
           </Button>
