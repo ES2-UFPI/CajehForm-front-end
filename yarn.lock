@@ -4500,6 +4500,11 @@ react-native-typography@^1.4.1:
   resolved "https://registry.yarnpkg.com/react-native-typography/-/react-native-typography-1.4.1.tgz#2d05cb5935a2f7fdb6b43bbde93d60f1324578e3"
   integrity sha512-dc9Zfs4jUdq4ygx4/KwO6jKTERBu6cRrfPJGntw/pA+D6BMjlWfMNuhZ/69vf4Zpsnt9s4AGe+Z/V1QFYaCXAA==
 
+react-native-validate-form@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/react-native-validate-form/-/react-native-validate-form-1.1.3.tgz#5266a6624fdba11d9867a95fa12a270b561fda77"
+  integrity sha512-7OTQaGPbOImI9RY4IjdKDFEAbYCuQjIUFAT9KDFp5TTVUx/MH4qMdlM7jOaoOPjU9TNERXIjYoOYPun1dbrQGw==
+
 react-native-vector-icons@^6.4.2, react-native-vector-icons@^6.6.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.6.0.tgz#66cf004918eb05d90778d64bd42077c1800d481b"
