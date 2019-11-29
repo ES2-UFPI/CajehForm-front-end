@@ -12,18 +12,23 @@ import {
   View,
   Title
 } from "native-base";
+import CajehButton from "../Lookers/CajehButton.js";
 import { TouchableOpacity } from "react-native";
 import { material } from "react-native-typography";
 import MaterialBuilder from "./MaterialBuilder.js";
+import Modal from "react-native-modal";
 import Axios from "axios";
 
 export default class Builder extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
+      isModalVisible: false,
+      categorySelect: this.props.publishCategory,
       collaboratorImage: this.props.collaboratorImage,
       collaboratorName: this.props.collaboratorName,
-      collaboratorNote: this.props.collaboratorNote,
+      publishCategory: this.props.publishCategory,
       publishSaves: this.props.publishSaves,
       publishComments: this.props.publishComments,
       publishTimeAgo: this.props.publishTimeAgo,
@@ -57,6 +62,12 @@ export default class Builder extends Component {
       }
     };
   }
+  showModal = () => {
+    this.setState({ isModalVisible: true });
+  };
+  hideModal = () => {
+    this.setState({ isModalVisible: false });
+  };
   doingPublish = (page, text, string) => {
     this.setState(prevState => ({
       [page]: {
@@ -69,7 +80,7 @@ export default class Builder extends Component {
   sendMaterialApi = (pagesContent) => {
     Axios.post('http://cajeh-api.herokuapp.com/publications',{
       user_id: 1,
-      title:'Publication',
+      title: this.props.collaboratorName,
       content: pagesContent
     }).then(function(response){
       console.log(response)
@@ -91,6 +102,116 @@ export default class Builder extends Component {
           margin: 0
         }}
       >
+       <Modal
+            isVisible={this.state.isModalVisible}
+            style={{ margin: 0 }}
+            useNativeDriver={true}
+            animationOutTiming = {200}
+            hideModalContentWhileAnimating = {true}
+            animationIn= 'fadeInUp'
+            animationOut= 'fadeOutDown'
+          >
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              <TouchableOpacity style={{ flex: 1 }} onPress={this.hideModal}>
+                <View />
+              </TouchableOpacity>
+              <View style={{ bottom: 10 }}>
+              <Button
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.2)",
+                    height: 50,
+                    borderBottomWidth: 3,
+                    borderBottomColor: "rgba(255,255,255,0.6)"
+                  }}
+                  onPress={() => {this.setState({
+                    categorySelect: 'Front End'
+                  }),
+                  this.hideModal()}}
+                >
+                  <Icon
+                    name="close-circle-outline"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                  <Text style={{ color: "white", fontWeight: "700" }}>
+                    Front End
+                  </Text>
+                  <Icon
+                    name="close-circle-outline"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.2)",
+                    height: 50,
+                    borderBottomWidth: 3,
+                    borderBottomColor: "rgba(255,255,255,0.6)"
+                  }}
+                  onPress={() => {this.setState({
+                    categorySelect: 'Back End'
+                  }),
+                  this.hideModal()}}
+                >
+                  <Icon
+                    name="close-circle-outline"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                  <Text style={{ color: "white", fontWeight: "700" }}>
+                    Back End
+                  </Text>
+                  <Icon
+                    name="close-circle-outline"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.2)",
+                    height: 50,
+                    borderBottomWidth: 3,
+                    borderBottomColor: "rgba(255,255,255,0.6)"
+                  }}
+                  onPress={() => {this.setState({
+                    categorySelect: 'Full Stack'
+                  }),
+                  this.hideModal()}}
+                >
+                  <Icon
+                    name="close-circle-outline"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                  <Text style={{ color: "white", fontWeight: "700" }}>
+                    Full Stack
+                  </Text>
+                  <Icon
+                    name="close-circle-outline"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                </Button>
+                </View>
+                <Button
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.9)",
+                    height: 50,
+                    borderBottomWidth: 3,
+                    borderBottomColor: "rgba(255,255,255,0.6)"
+                  }}
+                  onPress={this.hideModal}
+                >
+                  <Icon
+                    name="close-circle-outline"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                  <Text style={{ color: "white", fontWeight: "700" }}>
+                    Close
+                  </Text>
+                  <Icon
+                    name="close-circle-outline"
+                    style={{ color: "rgba(255,255,255,1)"}}
+                  />
+                </Button>
+              </View>
+          </Modal>
         <CardItem
           style={{
             backgroundColor: "rgba(255,255,255,0.5)",
@@ -100,10 +221,14 @@ export default class Builder extends Component {
           }}
         >
           <Left>
+          <TouchableOpacity>
+
             <Thumbnail
               source={{ uri: this.props.collaboratorImage }}
               style={{ height: 30, width: 30 }}
             />
+                                      </TouchableOpacity>
+      <TouchableOpacity onPress={this.showModal}>
             <Body>
               <Text
                 style={{
@@ -113,8 +238,10 @@ export default class Builder extends Component {
               >
                 {this.props.collaboratorName}
               </Text>
-              <Text note>{this.props.collaboratorNote}</Text>
+              <Text note style={{color:'rgba(100,0,80,1)'}}>{this.state.categorySelect} Category</Text>
             </Body>
+            </TouchableOpacity>
+
           </Left>
           <Right>
             <TouchableOpacity onPress={() => this.sendMaterialApi(pagesContent)}>
@@ -164,7 +291,7 @@ export default class Builder extends Component {
                 style={{ color: "rgba(80,0,200,1)" }}
               />
               <Text style={{ color: "rgba(80,0,200,1)", fontWeight: "700" }}>
-                ? Saves
+                {this.props.publishSaves} Saves
               </Text>
             </Button>
           </Left>
@@ -176,7 +303,7 @@ export default class Builder extends Component {
                 style={{ color: "rgba(0,140,140,1)"}}
               />
               <Text style={{ color: "rgba(0,0,0,1)", fontWeight: "600" }}>
-                ? Comments
+              {this.props.publishComments} Comments
               </Text>
             </Button>
           </Body>
@@ -193,7 +320,7 @@ export default class Builder extends Component {
                   fontWeight: "600"
                 }}
               >
-                ? h ago
+                {this.props.publishTimeAgo} h ago
               </Text>
             </Button>
           </Right>

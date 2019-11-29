@@ -174,8 +174,8 @@ export default class Lobby extends Component {
           <View style={{ top: 60 }}>
           <Builder 
               collaboratorImage="https://facebook.github.io/react-native/docs/assets/favicon.png"
-              collaboratorName="Cajeh"
-              collaboratorNote="@danielcajeh"
+              collaboratorName={this.props.navigation.getParam('nick')}
+              publishCategory="Select your"
               publishSaves={0}
               publishComments={0}
               publishTimeAgo={0}
