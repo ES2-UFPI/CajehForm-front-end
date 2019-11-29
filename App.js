@@ -16,7 +16,7 @@ import Cadaster from './src/Autentication/Cadaster.js'
 
 const AppNavigator = createStackNavigator({
   Login: {
-    screen: LobbyScreen,
+    screen: Login,
     navigationOptions: () => ({
       header: null,
     }),
