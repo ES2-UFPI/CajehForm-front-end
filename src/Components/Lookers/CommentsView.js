@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, TextInput,Button,Text,TouchableOpacity } from "react-native";
 import { iOSUIKit } from "react-native-typography";
+import Axios from 'axios'
 
 export default class CommentsView extends Component {
     constructor(props) {
@@ -32,6 +33,15 @@ export default class CommentsView extends Component {
       updateTeste = () =>{
         Axios.put(`http://cajeh-api.herokuapp.com/publications/${this.props.publishId}`,{
           comment: `${this.state.text1}<text>${this.state.k1}<verified>${this.state.userk1}<user><comment>${this.state.text2}<text>${this.state.k2}<verified>${this.state.userk2}<user><comment>${this.state.text3}<text>${this.state.k3}<verified>${this.state.userk3}<user><comment>${this.state.text4}<text>${this.state.k4}<verified>${this.state.userk4}<user><comment>${this.state.text5}<text>${this.state.k5}<verified>${this.state.userk5}<user><comment>${this.state.text6}<text>${this.state.k6}<verified>${this.state.userk6}<user><comment>${this.state.text7}<text>${this.state.k7}<verified>${this.state.userk7}<user><comment>`
+        }).then(function(response){
+          console.log(response)
+        }).catch(function(error){
+          console.log(error)
+        })
+      }
+      updateTeste2 = () =>{
+        Axios.put(`http://cajeh-api.herokuapp.com/publications/4`,{
+          title: 'Cajeh<person>Joao<person>José<person>Lucas<person>' 
         }).then(function(response){
           console.log(response)
         }).catch(function(error){
@@ -719,7 +729,7 @@ export default class CommentsView extends Component {
         <TouchableOpacity style={{zIndex:2}} onPress={() => {this.setState({
             k7:1,
             userk7: this.props.user
-        })}}
+        }), this.updateTeste2()}}
         >
                 <Text
                   style={{

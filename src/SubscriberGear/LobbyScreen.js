@@ -30,6 +30,7 @@ export default class Lobby extends Component {
     isModalVisible: false,
     isModalVisible2: false,
     catSelect: 'Full Stack',
+    lobby: 0,
     publications: []
     }
   }
@@ -47,36 +48,16 @@ export default class Lobby extends Component {
   hideModal2 = () => {
     this.setState({ isModalVisible2: false });
   };
-  _renderItem = ({ item }) => (
-    
-    <Publish  
-              key={item.key}
-              collaboratorImage="https://facebook.github.io/react-native/docs/assets/favicon.png"
-              redirect = {this.props.navigation.navigate}
-              publishId = {item.id}
-              theUser = {this.props.navigation.getParam('nick')}
-              collaboratorName={item.title}
-              publishCategory="Category"
-              publishSaves={0}
-              publishComments= {0}
-              publishTimeAgo={0}
-              publishContent = {item.content}
-            />
-  );
   changeCat = (category) => {
     this.setState({
-      catSelect: category
+      catSelect: category,
+      lobby: 1
     })
-    for(i = 0; i<this.state.publications.length;i++){
-      alert(this.state.publications[i].title)
-      if(this.state.publications[i].title == category){
         this.setState({
-          publications: [...this.state.publications,this.state.publications[i]]
+          publications: [...this.state.publications]
         })
       }
 
-    }
-  }
 
   async componentDidMount() {
     try {
@@ -165,7 +146,7 @@ export default class Lobby extends Component {
               onPress={() => this.changeCat('Publication')}
             >
               <Text style={{fontSize:15}}>
-                {this.state.catSelect}
+                BackEnd
               </Text>
             </NewButton>
         </Header>
@@ -269,10 +250,10 @@ export default class Lobby extends Component {
                 <View />
               </TouchableOpacity>
               <View style={{ bottom: 10 }}>
-                  
-                  <CajehButton
+                  <CajehButton2
                     icon="bookmark"
                     name="Saves"
+                    nick = {this.props.navigation.getParam('nick')}
                     redirect={this.props.navigation.navigate}
                     screen="MySaves"
                     hide={this.hideModal2}
@@ -318,8 +299,25 @@ export default class Lobby extends Component {
         extraData={this.state.publications}
         keyExtractor={(item, index) => 'key' + index}
         renderItem={ ({ item }) => 
- { 
-    if (item.title == this.state.catSelect) {
+ {  
+   if(this.state.lobby == 0){
+    return(
+        <Publish  
+              key={item.key}
+              collaboratorImage="https://facebook.github.io/react-native/docs/assets/favicon.png"
+              redirect = {this.props.navigation.navigate}
+              publishId = {item.id}
+              theUser = {this.props.navigation.getParam('nick')}
+              collaboratorName={item.title}
+              publishCategory="Category"
+              publishSaves={0}
+              publishComments= {0}
+              publishTimeAgo={0}
+              publishContent = {item.content}
+            />
+            )
+   }else{
+    if (item.title == this.state.catSelect ) {
       return(
         <Publish  
               key={item.key}
@@ -336,6 +334,7 @@ export default class Lobby extends Component {
             />
             )
           }
+   }
 
   }
 }
@@ -349,7 +348,10 @@ export default class Lobby extends Component {
             height: 70
           }}
           position="bottomRight"
-          onPress={() => this.props.navigation.navigate("Lobby")}
+          onPress={() => {this.setState({
+            lobby:0,
+            publications: [...this.state.publications]
+          })}}
         >
           <Icon name="planet" style={{ color: "rgba(255,255,255,1)" }} />
         </Fab>

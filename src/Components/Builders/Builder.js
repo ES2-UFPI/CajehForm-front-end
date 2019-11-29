@@ -307,23 +307,6 @@ export default class Builder extends Component {
               </Text>
             </Button>
           </Body>
-          <Right>
-            <Button transparent disabled>
-              <Icon
-                active
-                name="alarm"
-                style={{ color: "rgba(0,140,140,1)" }}
-              />
-              <Text
-                style={{
-                  color: "rgba(0,0,0,1)",
-                  fontWeight: "600"
-                }}
-              >
-                {this.props.publishTimeAgo} h ago
-              </Text>
-            </Button>
-          </Right>
         </CardItem>
       </View>
     );

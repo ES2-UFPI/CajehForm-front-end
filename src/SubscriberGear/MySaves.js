@@ -14,14 +14,19 @@ import {
   Text as NewText,
   Subtitle
 } from "native-base";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity,FlatList } from "react-native";
 import Modal from "react-native-modal";
+import Publish from "../Components/Lookers/Publish.js";
 import CajehButton from "../Components/Lookers/CajehButton.js";
+import CajehButton2 from "../Components/Lookers/CajehButton2.js";
 import { material } from "react-native-typography";
+import Axios from 'axios'
 
 export default class Lobby extends Component {
   state = {
-    isModalVisible: false
+    isModalVisible: false,
+    publications: [],
+    lobby: 0
   };
 
   showModal = () => {
@@ -30,6 +35,16 @@ export default class Lobby extends Component {
   hideModal = () => {
     this.setState({ isModalVisible: false });
   };
+  async componentDidMount() {
+    try {
+      const publicationsDaAPI = await Axios.get('http://cajeh-api.herokuapp.com/publications')
+      let allPublications = publicationsDaAPI.data
+      this.setState({ publications: [...this.state.publications,...allPublications] })
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   render() {
     return (
       <Container style={{ position: "relative" }}>
@@ -171,6 +186,37 @@ export default class Lobby extends Component {
           </Modal>
           {/* Mudar a Cor do Lobby da Rede, variar e vender para o usuário escolher */}
           <View style={{ top: 60 }}>
+          <FlatList
+        data={this.state.publications}
+        extraData={this.state.publications}
+        keyExtractor={(item, index) => 'key' + index}
+        renderItem={ ({ item }) => 
+ {  
+          var selectedPub = item.title.split('<person>')
+        for(j = 0; j< selectedPub.length; j++){
+          if(selectedPub[j] == 'egua'){
+            return(
+        <Publish  
+              key={item.key}
+              collaboratorImage="https://facebook.github.io/react-native/docs/assets/favicon.png"
+              redirect = {this.props.navigation.navigate}
+              publishId = {item.id}
+              theUser = {this.props.navigation.getParam('nick')}
+              collaboratorName={item.title}
+              publishCategory="Category"
+              publishSaves={0}
+              publishComments= {0}
+              publishTimeAgo={0}
+              publishContent = {item.content}
+            />
+            )
+          }
+        }
+   
+
+  }
+}
+      />
             <View style={{ height: 60 }} />
           </View>
         </Content>

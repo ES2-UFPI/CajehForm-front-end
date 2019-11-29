@@ -21,7 +21,72 @@ export default class Publish extends Component {
     super(props);
     this.state = {
       k: 0,
+      l: 0,
     };
+  }
+  updateTeste = (saves) =>{
+    alert(saves + `${this.props.theUser}<person>`)
+  }
+  updateSaves = (saves) =>{
+    Axios.put(`http://cajeh-api.herokuapp.com/publications/${this.props.publishId}`,{
+      saves: saves + `${this.props.theUser}<person>`
+    }).then(function(response){
+      console.log(response)
+    }).catch(function(error){
+      console.log(error)
+    })
+  }
+  buttonSave = (contSaves, saves) =>{
+    var k = 0
+    for(i = 0; i< contSaves.length;i++){
+      if(this.props.theUser == contSaves[i]){
+         k = 1
+      }
+    }
+    if(k == 0 && this.state.l == 0){
+      return(
+      <Button transparent onPress = {() => {this.setState({
+        l:1
+      }), this.updateTeste(saves)}} >
+              <Icon
+                active
+                name="bookmark"
+                style={{ color: "rgba(80,0,200,1)" }}
+              />
+              <Text style={{ color: "rgba(80,0,200,1)", fontWeight: "700" }}>
+                {contSaves.length - 1} Saves
+              </Text>
+            </Button>
+      )
+    }
+    if(k == 1 && this.state.l == 0){
+      return(
+      <Button transparent>
+              <Icon
+                active
+                name="bookmark"
+                style={{ color: "rgba(200,0,0,1)" }}
+              />
+              <Text style={{ color: "rgba(80,0,200,1)", fontWeight: "700" }}>
+                {contSaves.length - 1} Saves
+              </Text>
+            </Button>
+      )
+    }
+    if(k == 0 && this.state.l == 1){
+      return(
+      <Button transparent>
+              <Icon
+                active
+                name="bookmark"
+                style={{ color: "rgba(200,0,0,1)" }}
+              />
+              <Text style={{ color: "rgba(80,0,200,1)", fontWeight: "700" }}>
+                {contSaves.length} Saves
+              </Text>
+            </Button>
+      )
+    }
   }
   render() {
     const material = this.props.publishContent.split('<page>')
@@ -48,6 +113,8 @@ export default class Publish extends Component {
     const text6 = comment[6].split('<text>')
     const verified6 = text6[1].split('<verified>')
     const user6 = verified6[1].split('<user>')
+    const saves ='Cajeh<person>Joao<person>José<person>Lucas<person>' 
+    const contSaves = saves.split('<person>')
     const k = 0;
     return (
       <View
@@ -86,12 +153,12 @@ export default class Publish extends Component {
                 >
                   {this.props.collaboratorName}
                 </Text>
-                <Text note>{this.props.publishCategory}</Text>
+                <Text note style={{color:'rgba(100,0,80,1)'}}>{this.props.publishCategory}</Text>
                 </TouchableOpacity>
             </Body>
           </Left>
           <Right>
-            <Button transparent onPress={() => console.log(verified[0])} style={{left:20}}>
+            <Button transparent>
               <Text
                 style={{
                   color: "rgba(0,0,0,1)",
@@ -144,16 +211,7 @@ export default class Publish extends Component {
           }}
         >
           <Left>
-            <Button transparent>
-              <Icon
-                active
-                name="bookmark"
-                style={{ color: "rrgba(80,0,200,1)" }}
-              />
-              <Text style={{ color: "rgba(80,0,200,1)", fontWeight: "700" }}>
-                {this.props.publishSaves} Saves
-              </Text>
-            </Button>
+            {this.buttonSave(contSaves, saves)}
           </Left>
           <Body>
             <Button transparent onPress={() => this.setState({
@@ -165,27 +223,10 @@ export default class Publish extends Component {
                 style={{ color: "rgba(0,140,140,1)" }}
               />
               <Text style={{ color: "rgba(50,50,50,1)", fontWeight: "600" }}>
-                 {this.props.publishComments} Comments
+                 Comments
               </Text>
             </Button>
           </Body>
-          <Right>
-            <Button transparent disabled>
-              <Icon
-                active
-                name="alarm"
-                style={{ color: "rgba(0,140,140,1)"}}
-              />
-              <Text
-                style={{
-                  color: "rgba(50,50,50,1)",
-                  fontWeight: "600"
-                }}
-              >
-                {this.props.publishTimeAgo}h ago
-              </Text>
-            </Button>
-          </Right>
         </CardItem>
       </View>
     );
