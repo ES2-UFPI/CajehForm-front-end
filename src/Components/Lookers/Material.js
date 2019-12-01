@@ -111,7 +111,6 @@ export default class extends Component {
       }
       else{
         const page0 = this.props.page0.split('<text>')
-    console.log(page0)
     return (
       <View
         style={styles.wrapper}
