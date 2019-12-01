@@ -116,7 +116,6 @@ export default class Lobby extends Component {
           <Right>
             <NewButton
               style={{ backgroundColor: "rgba(0,0,0, 0)", height: 60 }}
-              onPress={() => this.props.navigation.navigate("MySaves")}
             >
               <Icon name="bookmark" style={{ color: "rgba(255,255,255,1)" }} />
             </NewButton>
@@ -148,35 +147,30 @@ export default class Lobby extends Component {
                   <CajehButton
                     icon="eye"
                     name="See my Publishments"
-                    redirect={this.props.navigation.navigate}
                     screen="MyPublish"
                     hide={this.hideModal}
                   />
                   <CajehButton
                     icon="eye"
                     name="See my Materials"
-                    redirect={this.props.navigation.navigate}
                     screen="MyMaterial"
                     hide={this.hideModal}
                   />
                   <CajehButton
                     icon="cloud-upload"
                     name="Upload a Publishment"
-                    redirect={this.props.navigation.navigate}
                     screen="DoPublish"
                     hide={this.hideModal}
                   />
                   <CajehButton
                     icon="hammer"
                     name="Edit Material"
-                    redirect={this.props.navigation.navigate}
                     screen="EditMaterial"
                     hide={this.hideModal}
                   />
                   <CajehButton
                     icon="hammer"
                     name="Build Material"
-                    redirect={this.props.navigation.navigate}
                     screen="BuildMaterial"
                     hide={this.hideModal}
                   />

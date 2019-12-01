@@ -11,12 +11,14 @@ import {
   Body,
   Icon,
   Fab,
+  Button,
   Text as NewText
 } from "native-base";
 import { Text, View, TouchableOpacity,FlatList } from "react-native";
 import Modal from "react-native-modal";
 import Publish from "../Components/Lookers/Publish.js";
 import CajehButton from "../Components/Lookers/CajehButton.js";
+import CajehButton2 from "../Components/Lookers/CajehButton2.js";
 import { material } from "react-native-typography";
 import Axios from 'axios'
 
@@ -27,6 +29,8 @@ export default class Lobby extends Component {
     this.state = {
     isModalVisible: false,
     isModalVisible2: false,
+    catSelect: 'Full Stack',
+    lobby: 0,
     publications: []
     }
   }
@@ -44,18 +48,16 @@ export default class Lobby extends Component {
   hideModal2 = () => {
     this.setState({ isModalVisible2: false });
   };
-  _renderItem = ({ item }) => (
-    <Publish  
-              key={item.key}
-              collaboratorImage="https://facebook.github.io/react-native/docs/assets/favicon.png"
-              collaboratorName="Cajeh"
-              collaboratorNote="@danielcajeh"
-              publishSaves={20}
-              publishComments={4}
-              publishTimeAgo={11}
-              publishContent = {item.content}
-            />
-  );
+  changeCat = (category) => {
+    this.setState({
+      catSelect: category,
+      lobby: 1
+    })
+        this.setState({
+          publications: [...this.state.publications]
+        })
+      }
+
 
   async componentDidMount() {
     try {
@@ -69,6 +71,7 @@ export default class Lobby extends Component {
 
 
   render() {
+
     return (
       <Container style={{ position: "relative" }}>
         <Header
@@ -128,6 +131,24 @@ export default class Lobby extends Component {
               <Icon name="outlet" style={{ color: "rgba(255,255,255,1)" }} />
             </NewButton>
           </Right>
+          <NewButton
+              style={{ backgroundColor: "rgba(255,255,255, 0.5)", height: 45,position:'absolute',
+              top:63 }}
+              onPress={() => this.changeCat('Cajeh')}
+            >
+              <Text style={{fontSize:15}}>
+                FrontEnd
+              </Text>
+            </NewButton>
+            <NewButton
+              style={{ backgroundColor: "rgba(255,255,255, 0.5)", height: 45,position:'absolute',
+              top:63, right:45 }}
+              onPress={() => this.changeCat('Publication')}
+            >
+              <Text style={{fontSize:15}}>
+                BackEnd
+              </Text>
+            </NewButton>
         </Header>
         <Content
           style={{
@@ -136,6 +157,7 @@ export default class Lobby extends Component {
             flex: 1,
             zIndex: -1
           }}
+          disableKBDismissScroll={true}
           showsVerticalScrollIndicator={false}
         >
           <Modal
@@ -180,9 +202,12 @@ export default class Lobby extends Component {
                     screen="EditMaterial"
                     hide={this.hideModal}
                   />
-                  <CajehButton
+                  <CajehButton2
                     icon="hammer"
                     name="Build Material"
+                    nick = {this.props.navigation.getParam('nick')}
+                    email = {this.props.navigation.getParam('email')}
+                    number = {this.props.navigation.getParam('number')}
                     redirect={this.props.navigation.navigate}
                     screen="BuildMaterial"
                     hide={this.hideModal}
@@ -225,17 +250,20 @@ export default class Lobby extends Component {
                 <View />
               </TouchableOpacity>
               <View style={{ bottom: 10 }}>
-                  
-                  <CajehButton
+                  <CajehButton2
                     icon="bookmark"
                     name="Saves"
+                    nick = {this.props.navigation.getParam('nick')}
                     redirect={this.props.navigation.navigate}
                     screen="MySaves"
                     hide={this.hideModal2}
                   />
-                  <CajehButton
+                  <CajehButton2
                     icon="person"
                     name="Perfil"
+                    nick = {this.props.navigation.getParam('nick')}
+                    email = {this.props.navigation.getParam('email')}
+                    number = {this.props.navigation.getParam('number')}
                     redirect={this.props.navigation.navigate}
                     screen="MyPerfil"
                     hide={this.hideModal2}
@@ -270,7 +298,46 @@ export default class Lobby extends Component {
         data={this.state.publications}
         extraData={this.state.publications}
         keyExtractor={(item, index) => 'key' + index}
-        renderItem={this._renderItem}
+        renderItem={ ({ item }) => 
+ {  
+   if(this.state.lobby == 0){
+    return(
+        <Publish  
+              key={item.key}
+              collaboratorImage="https://facebook.github.io/react-native/docs/assets/favicon.png"
+              redirect = {this.props.navigation.navigate}
+              publishId = {item.id}
+              theUser = {this.props.navigation.getParam('nick')}
+              collaboratorName={item.title}
+              publishCategory="Category"
+              publishSaves={0}
+              publishComments= {0}
+              publishTimeAgo={0}
+              publishContent = {item.content}
+            />
+            )
+   }else{
+    if (item.title == this.state.catSelect ) {
+      return(
+        <Publish  
+              key={item.key}
+              collaboratorImage="https://facebook.github.io/react-native/docs/assets/favicon.png"
+              redirect = {this.props.navigation.navigate}
+              publishId = {item.id}
+              theUser = {this.props.navigation.getParam('nick')}
+              collaboratorName={item.title}
+              publishCategory="Category"
+              publishSaves={0}
+              publishComments= {0}
+              publishTimeAgo={0}
+              publishContent = {item.content}
+            />
+            )
+          }
+   }
+
+  }
+}
       />
             <View style={{ height: 60 }} />
           </View>
@@ -281,7 +348,10 @@ export default class Lobby extends Component {
             height: 70
           }}
           position="bottomRight"
-          onPress={() => this.props.navigation.navigate("Lobby")}
+          onPress={() => {this.setState({
+            lobby:0,
+            publications: [...this.state.publications]
+          })}}
         >
           <Icon name="planet" style={{ color: "rgba(255,255,255,1)" }} />
         </Fab>

@@ -2,6 +2,7 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import LobbyScreen from './src/SubscriberGear/LobbyScreen.js';
 import MyPerfil from './src/SubscriberGear/MyPerfil.js';
+import OtherPerfil from './src/SubscriberGear/OtherPerfil.js';
 import MyPublish from './src/CollaboratorGear/MyPublish.js';
 import MyMaterial from './src/CollaboratorGear/MyMaterial.js';
 import DoPublish from './src/CollaboratorGear/DoPublish.js';
@@ -9,7 +10,8 @@ import EditMaterial from './src/CollaboratorGear/EditMaterial.js';
 import BuildMaterial from './src/CollaboratorGear/BuildMaterial.js';
 import MySaves from './src/SubscriberGear/MySaves.js';
 import Login from './src/Autentication/Login.js';
-import Cadaster from './src/Autentication/Cadaster.js';
+import Cadaster from './src/Autentication/Cadaster.js'
+
 
 
 const AppNavigator = createStackNavigator({
@@ -70,6 +72,12 @@ const AppNavigator = createStackNavigator({
   },
   MyPerfil: {
     screen: MyPerfil,
+    navigationOptions: () => ({
+      header: null,
+    }),
+  },
+  OtherPerfil: {
+    screen: OtherPerfil,
     navigationOptions: () => ({
       header: null,
     }),
