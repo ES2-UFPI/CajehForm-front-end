@@ -11,6 +11,8 @@ before_script:
 script:
   - npm ci
   - npx jest --ci
+os:
+  - osx
 jobs:
   include:
     - stage: deploy
