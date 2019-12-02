@@ -194,7 +194,7 @@ export default class Lobby extends Component {
  {  
           var selectedPub = item.title.split('<person>')
         for(j = 0; j< selectedPub.length; j++){
-          if(selectedPub[j] == 'egua'){
+          if(selectedPub[j] == this.props.navigation.getParam('nick')){
             return(
         <Publish  
               key={item.key}
