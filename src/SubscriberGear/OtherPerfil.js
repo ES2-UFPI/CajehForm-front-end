@@ -23,18 +23,36 @@ import CajehButton from "../Components/Lookers/CajehButton.js";
 import { material } from "react-native-typography";
 import Axios from 'axios'
 
-export default class MyPerfil extends Component {
+export default class OtherPerfil extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+        users : [],
       imagePerfil:"https://facebook.github.io/react-native/docs/assets/favicon.png",
       newNick:this.props.navigation.getParam('nick'),
-      email:this.props.navigation.getParam('email'),
-      password:'33453',
-      confirmPassword:'33453',
-      number:this.props.navigation.getParam('number')
+      email:"",
+      number:""
     };
+  }
+  async componentDidMount() {
+    try {
+      const usersDaAPI = await Axios.get('http://cajeh-api.herokuapp.com/users')
+      let allUsers = usersDaAPI.data
+      this.setState({ users: [...this.state.users,...allUsers] })
+    } catch (error) {
+      alert(error)
+    }
+    for(i=0;i<this.state.users.length;i++){
+        if(this.state.newNick == this.state.users[i].name){
+          this.setState({
+            newNick: this.state.users[i].name,
+            email: this.state.users[i].email,
+            number: this.state.users[i].phone_number,
+          })
+        }
+        
+      }
   }
 
 

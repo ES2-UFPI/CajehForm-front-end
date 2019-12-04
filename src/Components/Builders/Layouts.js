@@ -19,7 +19,7 @@ import MaterialBuilder from "./MaterialBuilder.js";
 import Modal from "react-native-modal";
 import Axios from "axios";
 
-export default class Builder extends Component {
+export default class Layouts extends Component {
 
   constructor(props) {
     super(props);

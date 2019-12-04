@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Text, View, Image, Dimensions } from "react-native";
 import Swiper from "react-native-swiper";
 import Page from "./Page.js";
+import CommentsView from "./CommentsView.js";
 
 const styles = {
   container: {
@@ -20,6 +21,7 @@ const styles = {
 
 export default class extends Component {
   render() {
+    if(this.props.aux == 0){
     const page0 = this.props.page0.split('<text>')
     const page1 = this.props.page1.split('<text>')
     const page2 = this.props.page2.split('<text>')
@@ -106,5 +108,45 @@ export default class extends Component {
         />
       </Swiper>
     );
+      }
+      else{
+        const page0 = this.props.page0.split('<text>')
+    return (
+      <View
+        style={styles.wrapper}
+        height={400}
+      >
+        <CommentsView
+          design={styles.slide}
+          backColor="rgba(200,200,200,0.87)"
+          user = {this.props.user}
+          title={<Text numberOfLines={1}>Page One</Text>}
+          publishId = {this.props.publishId}
+          text0 = {this.props.text0}
+          text1 = {this.props.text1}
+          text2 = {this.props.text2}
+          text3 = {this.props.text3}
+          text4 = {this.props.text4}
+          text5 = {this.props.text5}
+          text6 = {this.props.text6}
+          verified0 = {this.props.verified0}
+          verified1 = {this.props.verified1}
+          verified2 = {this.props.verified2}
+          verified3 = {this.props.verified3}
+          verified4 = {this.props.verified4}
+          verified5 = {this.props.verified5}
+          verified6 = {this.props.verified6}
+          user0 = {this.props.user0}
+          user1 = {this.props.user1}
+          user2 = {this.props.user2}
+          user3 = {this.props.user3}
+          user4 = {this.props.user4}
+          user5 = {this.props.user5}
+          user6 = {this.props.user6}
+        />
+      </View>
+    );
+
+      }
   }
 }
